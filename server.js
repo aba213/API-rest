@@ -1,14 +1,20 @@
-const express = require('express');
-const User =require('./models/user');
-require('dotenv').config();
+const express= require ("express");
+require("dotenv").config();
+const ConnectDB = require("./config/connectDB");
 
-require('./initDB')();
 
 
 const app = express();
 
+ConnectDB();
+
+
+app.use(express.json());
+
+app.use("/api/contact", require("./routes/Contact"));
+
 const PORT = process.env.PORT || 5000;
 
-app.listen(5000,(err)=>
+app.listen(process.env.PORT,(err)=>
 err ? console.error(err) : console.log("server is running")
 );
